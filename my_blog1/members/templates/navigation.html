@@ -1,0 +1,260 @@
+<style>
+  .navbar-brand {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+  }
+
+  .logo {
+    height: 80px;
+    width: 80px;
+  }
+  .sub {
+    background: rgb(255, 255, 255);
+    border-color: rgb(0, 0, 0);
+    width: 130px;
+    /* height: 46px; */
+    font-weight: bold;
+  }
+  .star-image {
+    height: 20px;
+    width: 20px;
+    margin-left: 5px;
+  }
+  .container-fluid{
+    background-color: rgb(255, 255, 255);
+    
+    border-radius: 24px;
+    position: fixed;
+    width: fit-content;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    
+  }
+  
+
+ 
+
+/* CSS */
+/* .logout {
+  margin-left: 499px;
+
+} */
+
+
+.logout {
+  margin-left: 12px; 
+  background-color: #FFFFFF;
+  border: 1px solid rgb(209,213,219);
+  border-radius: .5rem;
+  box-sizing: border-box;
+  color: #111827;
+  font-family: "Inter var",ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-size: .875rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  padding: .75rem 1rem;
+  text-align: center;
+  text-decoration: none #D1D5DB solid;
+  text-decoration-thickness: auto;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.dropdown-toggle{
+  background-color: transparent;
+}
+
+.button-39:hover {
+  background-color: rgb(249,250,251);
+}
+
+.button-39:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.button-39:focus-visible {
+  box-shadow: none;
+
+}
+
+.button-38:hover {
+  background-color: rgb(249,250,251);
+}
+
+.button-38:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.button-38:focus-visible {
+  box-shadow: none;
+}
+
+
+
+  @media (max-width: 768px) { /* Adjust this breakpoint as needed */
+    .container-fluid {
+      width: 100%; /* Ensure full width on smaller screens */
+      padding: 15px; /* Add padding for content spacing */
+    }
+
+    .navbar-brand {
+      font-size: 18px; /* Adjust font size for readability */
+    }
+
+    .navbar-nav {
+      flex-direction: column; /* Stack navigation links vertically */
+    }
+
+    .navbar-toggler {
+      display: block; /* Show the toggler button */
+    }
+
+    .collapse {
+      display: block; /* Show collapsed content by default */
+    }
+
+    .dropdown-menu {
+      position: static; /* Prevent dropdown overflow on small screens */
+      display: none; /* Hide dropdowns initially */
+    }
+
+    .dropdown-menu-show { /* Class for showing a specific dropdown */
+      display: block;
+    }
+  }
+</style>
+
+<!-- <div class="container-fluid d-flex align-items-center ml-auto">
+  <nav class="navbar navbar-expand-lg navbar-light">
+    </nav>
+</div>
+
+</style> -->
+
+<div class="container-fluid d-flex align-items-center justify-content-end ml-auto">
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <img
+      src="http://localhost:8000/images/8.png"
+      alt="logo"
+      class="logo"
+    />
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarText"
+      aria-controls="navbarText"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href=""
+            >Home <span class="sr-only">(current)</span></a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="contact/">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="about/">About</a>
+        </li>
+        <li class="sub">
+          <a class="nav-link text-dark" href="subscribe/"
+            >Subscribe
+            <img
+              class="star-image"
+              src="http://localhost:8000/images/stars-01.256x256.png"
+              alt="stars-01"
+          /></a>
+        </li>
+      </ul>
+      <li>
+        <div class="container mb-4">
+          <div class="row">
+            <div >
+              <div class="dropdown">
+                <button
+                  class="btn dropdown-toggle"
+                  type="button"
+                  id="categoryDropdown"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                Category
+                </button>
+                <ul
+                  class="dropdown-menu dropdown-menu-dark"
+                  aria-labelledby="categoryDropdown"
+                >
+                  {% for category in categories %}
+                  <li class="dropdown-item">
+                    <a
+                      class="d-flex justify-content-between align-items-center"
+                      href="{% url 'category' category.id %}"
+                    >
+                      <div>
+                        <h6 class="mb-1">{{ category.name }}</h6>
+                        <p class="mb-0 text-muted">
+                          {{ category.description }}
+                        </p>
+                      </div>
+                      <span class="badge badge-secondary"
+                        >{{ category.count }}</span
+                      >
+                    </a>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+      {% if user.is_authenticated %}
+      <!-- <h5>Welcome</h5> -->
+      <form action="{% url 'login' %}" method="get">
+        {% csrf_token %}
+        <button class="logout">Logout</button>
+      </form>
+      {% else %}
+      <form action="{% url 'signup' %}" method="get">
+        {% csrf_token %}
+        <button class="logout">Sign Up</button>
+      </form>
+      <form action="{% url 'login' %}" method="get">
+        {% csrf_token %}
+        <button class="logout">Login</button>
+      </form>
+      {% endif %}
+     
+    </div>
+  </nav>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

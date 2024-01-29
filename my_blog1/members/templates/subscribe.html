@@ -1,0 +1,145 @@
+<!-- members/templates/subscribe.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscribe to Newsletter</title>
+</head>
+<body>
+
+<h2>Subscribe to Newsletter</h2>
+
+<form method="post" action="{% url 'subscribe' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Subscribe</button>
+</form>
+
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscribe to Newsletter</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            flex-direction: column;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-image: url(https://wallpaperaccess.com/full/3204572.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+            
+        }
+
+        h2 {
+            font-size: 40px;
+            color: #000000;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            padding: 34px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+
+            /* glass */
+
+            backdrop-filter: blur(16px) saturate(180%);
+        -webkit-backdrop-filter: blur(16px) saturate(180%);
+        background-color: rgba(17, 25, 40, 0.75);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.125);
+        }
+
+        input[type="text"],
+        input[type="email"] {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            margin-right: 70px;
+            font-size: 16px;
+        }
+
+        button[type="submit"] {
+            background-color: #ffffff;
+            color: #000000;
+            padding: 9px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .messages {
+            margin-top: 20px;
+            list-style: none;
+            padding: 0;
+        }
+
+        .messages li {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .messages li.success {
+            background-color: #4CAF50;
+            color: #fff;
+        }
+
+        .messages li.error {
+            background-color: #f44336;
+            color: #fff;
+        }
+        .h2{
+            color: white;
+        }
+        .mail{
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<form method="post" action="{% url 'subscribe' %}">
+    <h2 class="h2">Subscribe to Newsletter</h2>
+    <p class="mail">Enter your email</p>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Subscribe</button>
+</form>
+
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+</body>
+</html>
+

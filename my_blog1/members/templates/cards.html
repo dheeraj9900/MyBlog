@@ -1,0 +1,29 @@
+
+{%extends "_base.html"%}
+
+{% block content %}
+<div class="container mt-3 ml-1">
+  <h4>Latest Posts</h4>
+</div>
+
+{% for blog in blogs %}
+<div class="card">
+  <img
+    src="{{ blog.cardImage.url }}"
+    alt="{{ blog.cardTitle }}"
+  />
+  <div class="card-content">
+    <h2>{{blog.cardTitle}}</h2>
+    <p class="card-description">
+      {{blog.cardDescription}}
+    </p>
+    <small>{{ blog.published_at|date:"F d, Y" }}</small>
+   
+  </div>
+  <h2>{{ category.id }}</h2>
+  <a href="{% url 'details' blog.id %}" class="read  rounded " style="position: absolute; bottom: 15px; right: 20px;">Read more</a>
+  
+</div>
+</div>
+{% endfor %}
+  {% endblock content%}
