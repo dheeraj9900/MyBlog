@@ -1,0 +1,14 @@
+<!-- search_results.html -->
+{% extends "_base.html" %}
+
+{% block content %}
+  <div class="container mt-3 ml-1">
+    <h4>Search Results for "{{ query }}"</h4>
+  </div>
+
+  {% for result in results %}
+    <div class="card">
+      <!-- Your existing card content here -->
+    </div>
+  {% endfor %}
+{% endblock content %}

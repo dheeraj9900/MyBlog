@@ -1,6 +1,7 @@
 
 from django.db import models
 from ckeditor .fields import RichTextField
+from django.contrib.auth.models import User
 
 class Member(models.Model):
   firstname = models.CharField(max_length=255)
@@ -10,7 +11,7 @@ class Category(models.Model):
    name = models.CharField(max_length = 200,unique = True)
    def __str__(self):
       return self.name
-   
+    
 
 class Blog(models.Model):
   id  = models.AutoField(primary_key=True)
@@ -21,11 +22,18 @@ class Blog(models.Model):
   content = RichTextField(blank=True)
   blog_cat = models.ForeignKey(Category, on_delete=models.CASCADE)
   published_at = models.DateTimeField(auto_now_add=True, null=True)
-
-
+  views = models.BigIntegerField(default=0)
+  likesCount = models.BigIntegerField(default=0)
 
   def __str__(self):
     return self.cardTitle
+  
+
+class Likes(models.Model):
+  user = models.ForeignKey(User,on_delete=models.CASCADE)
+  blogPost = models.ForeignKey(Blog,on_delete=models.CASCADE)
+  # countLikes  = models.BigIntegerField(default=0)
+  
   
 
 class Subscriber(models.Model):

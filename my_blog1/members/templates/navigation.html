@@ -20,82 +20,77 @@
     width: 20px;
     margin-left: 5px;
   }
-  .container-fluid{
+  .container-fluid {
     background-color: rgb(255, 255, 255);
-    
+
     border-radius: 24px;
-    position: fixed;
+    /* position:; */
+    position: absolute;
     width: fit-content;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    
   }
+
+ /* searchbar */
+
   
 
- 
+  .logout {
+    margin-left: 12px;
+    background-color: #ffffff;
+    border: 1px solid rgb(209, 213, 219);
+    border-radius: 0.5rem;
+    box-sizing: border-box;
+    color: #111827;
+    font-family: "Inter var", ui-sans-serif, system-ui, -apple-system, system-ui,
+      "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+      "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+      "Noto Color Emoji";
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.25rem;
+    padding: 0.75rem 1rem;
+    text-align: center;
+    text-decoration: none #d1d5db solid;
+    text-decoration-thickness: auto;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
 
-/* CSS */
-/* .logout {
-  margin-left: 499px;
+  .dropdown-toggle {
+    background-color: transparent;
+  }
 
-} */
+  .button-39:hover {
+    background-color: rgb(249, 250, 251);
+  }
 
+  .button-39:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+  }
 
-.logout {
-  margin-left: 12px; 
-  background-color: #FFFFFF;
-  border: 1px solid rgb(209,213,219);
-  border-radius: .5rem;
-  box-sizing: border-box;
-  color: #111827;
-  font-family: "Inter var",ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-  font-size: .875rem;
-  font-weight: 600;
-  line-height: 1.25rem;
-  padding: .75rem 1rem;
-  text-align: center;
-  text-decoration: none #D1D5DB solid;
-  text-decoration-thickness: auto;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  cursor: pointer;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-}
+  .button-39:focus-visible {
+    box-shadow: none;
+  }
 
-.dropdown-toggle{
-  background-color: transparent;
-}
+  .button-38:hover {
+    background-color: rgb(249, 250, 251);
+  }
 
-.button-39:hover {
-  background-color: rgb(249,250,251);
-}
+  .button-38:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+  }
 
-.button-39:focus {
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-}
+  .button-38:focus-visible {
+    box-shadow: none;
+  }
 
-.button-39:focus-visible {
-  box-shadow: none;
-
-}
-
-.button-38:hover {
-  background-color: rgb(249,250,251);
-}
-
-.button-38:focus {
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-}
-
-.button-38:focus-visible {
-  box-shadow: none;
-}
-
-
-
-  @media (max-width: 768px) { /* Adjust this breakpoint as needed */
+  @media (max-width: 768px) {
+    /* Adjust this breakpoint as needed */
     .container-fluid {
       width: 100%; /* Ensure full width on smaller screens */
       padding: 15px; /* Add padding for content spacing */
@@ -122,20 +117,18 @@
       display: none; /* Hide dropdowns initially */
     }
 
-    .dropdown-menu-show { /* Class for showing a specific dropdown */
+    .dropdown-menu-show {
+      /* Class for showing a specific dropdown */
       display: block;
     }
   }
 </style>
 
-
-<div class="container-fluid d-flex align-items-center justify-content-end ml-auto">
+<div
+  class="container-fluid d-flex align-items-center justify-content-end ml-auto z-3"
+>
   <nav class="navbar navbar-expand-lg navbar-light">
-    <img
-      src="http://localhost:8000/images/8.png"
-      alt="logo"
-      class="logo"
-    />
+    <img src="http://localhost:8000/images/8.png" alt="logo" class="logo" />
     <button
       class="navbar-toggler"
       type="button"
@@ -173,7 +166,7 @@
       <li>
         <div class="container mb-4">
           <div class="row">
-            <div >
+            <div>
               <div class="dropdown">
                 <button
                   class="btn dropdown-toggle"
@@ -183,7 +176,7 @@
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                Category
+                  Category
                 </button>
                 <ul
                   class="dropdown-menu dropdown-menu-dark"
@@ -213,6 +206,16 @@
           </div>
         </div>
       </li>
+      <!-- searchbar -->
+      <form class="form-inline my-2 my-lg-0" method="post" action="{% url 'search' %}">
+        {% csrf_token %}
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="prod_search">
+        <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
+      </form>
+
+
+
+
       {% if user.is_authenticated %}
       <!-- <h5>Welcome</h5> -->
       <form action="{% url 'login' %}" method="get">
@@ -229,26 +232,9 @@
         <button class="logout">Login</button>
       </form>
       {% endif %}
+
+      <!-- searchbar -->
      
     </div>
   </nav>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

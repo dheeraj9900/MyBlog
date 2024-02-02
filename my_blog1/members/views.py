@@ -1,5 +1,4 @@
 
-
 from .models import Blog,Subscriber
 from .forms import SubscribeForm
 from .models import Category
@@ -10,13 +9,36 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
-
+from django.db.models import Q
+from django.core.paginator import Paginator
 
 
 
 def members(request):
   blogs = Blog.objects.order_by('-published_at')
-  return render(request,"cards.html", {"blogs": blogs,'categories': Category.objects.all()})
+  categories = Category.objects.all()
+  
+  pageNumber = request.GET.get("page")
+  
+  if pageNumber is None:
+    pageNumber = 2
+
+  paginatedBlogs = Paginator(blogs, 2)
+  pagedBlogs = paginatedBlogs.page(pageNumber)
+  
+  return render(request,"cards.html", {'blogs': pagedBlogs,'categories': categories})
+
+def search(request):
+    if request.method == "POST":
+        x =request.POST.get('prod_search')
+        print(x)
+        mydata = Blog.objects.filter(Q(cardTitle__icontains = x)| Q(cardDescription__icontains = x))
+        print(mydata)
+        # return redirect('members')
+        return render(request,"cards.html", {"blogs": mydata})
+
+
+    
 
 
 def contact(request):
@@ -25,9 +47,22 @@ def contact(request):
 
 def details(request,blog_id):
    blog = get_object_or_404(Blog, pk=blog_id)
-  #  print(blog)
+#    print(blog)
+   if blog:
+       #updating view count
+       blog.views += 1
+       blog.save()
+
    return render(request,"details.html", {"blog":blog})
-  #  return render(request,"details.html", {"blogs": blogs})
+
+
+def likes(request,blog_id):
+    blog = get_object_or_404(Blog,pk=blog_id)
+    print(blog)
+    if blog:
+        blog.likesCount+=1
+        blog.save()
+    return render(request,"details.html" , {"blog":blog})
   
 
 
@@ -77,23 +112,16 @@ def user_login(request):
 
 
 def signup(request):
-    if request.method == 'GET':
-        return render(request, 'signup.html', {'form': UserCreationForm})
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # Redirect to a success page or login page
+            return redirect('login')
     else:
-        username = request.POST.get('username')
-        password1 = request.POST.get('password1')
-        password2 = request.POST.get('password2')
-
-        if password1 == password2:
-            if User.objects.filter(username=username).exists():
-                return render(request, 'signup.html', {'error': 'Username already exists'})
-            else:
-                user = User.objects.create_user(username=username, password=password1)
-                user.save()
-                login(request,user)
-                return redirect('members')  
-        else:
-            return render(request, 'signup.html', {'form':UserCreationForm, 'error': 'Passwords do not match'})
+        form = UserCreationForm()
+        
+    return render(request, 'signup.html', {'form':form, 'error': form.errors})
 
 
 
@@ -106,3 +134,7 @@ def category(request, cat_id):
     category_obj = Category.objects.get(id=cat_id)
     print(blogs)
     return render(request, "category.html", {"blogs": blogs, "cat_name": category_obj.name })
+
+
+
+

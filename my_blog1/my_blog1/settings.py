@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'members',
     'bootstrap5',
-    'ckeditor'
+    'ckeditor',
+    
 
 
 ]
