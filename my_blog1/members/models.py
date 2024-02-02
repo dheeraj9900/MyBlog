@@ -33,12 +33,5 @@ class Subscriber(models.Model):
 
     def __str__(self):
         return self.email
-
-
-
-
-# class BlogPost(models.Model):
-#     title = models.CharField(max_length=100)
-#     content = RichTextField(blank=True)
    
    
