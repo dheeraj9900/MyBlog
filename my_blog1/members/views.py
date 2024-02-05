@@ -1,17 +1,30 @@
 
-from .models import Blog,Subscriber
-from .forms import SubscribeForm
-from .models import Category
+# from .models import Blog,Subscriber
+
+# from .forms import SubscribeForm
+# from .models import Category
+# from django.contrib import messages
+# from django.shortcuts import render, redirect
+# from django.shortcuts import get_object_or_404
+# from django.http import HttpResponseRedirect
+# from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+# from django.contrib.auth import authenticate,login,logout
+# from django.contrib.auth.models import User
+# from django.db.models import Q
+# from django.core.paginator import Paginator
+# from .forms import CommentForm
+
+
 from django.contrib import messages
-from django.shortcuts import render, redirect
-from django.shortcuts import get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.core.paginator import Paginator
-
+from .forms import SubscribeForm, CommentForm
+from .models import Blog, Subscriber, Category,Comment
 
 
 def members(request):
@@ -52,8 +65,9 @@ def details(request,blog_id):
        #updating view count
        blog.views += 1
        blog.save()
-
-   return render(request,"details.html", {"blog":blog})
+       
+   comments_list = Comment.objects.filter(blog_id=blog_id)
+   return render(request,"details.html", {"blog":blog,"comments_list":comments_list})
 
 
 def likes(request,blog_id):
@@ -62,8 +76,11 @@ def likes(request,blog_id):
     if blog:
         blog.likesCount+=1
         blog.save()
-    return render(request,"details.html" , {"blog":blog})
+    return redirect('/details/'+blog_id+'/')
   
+#  def comment(request,blog_id):
+     
+    
 
 
 def about(request):
@@ -134,6 +151,16 @@ def category(request, cat_id):
     category_obj = Category.objects.get(id=cat_id)
     print(blogs)
     return render(request, "category.html", {"blogs": blogs, "cat_name": category_obj.name })
+
+
+
+def _comments(request,blog_id):
+        com = request.POST.get('comment1')
+        print(com)
+        x = Comment(body=com, blog_id=blog_id)
+        x.save()
+        return redirect('/details/'+blog_id+"/")
+
 
 
 

@@ -36,6 +36,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subscribe to Newsletter</title>
     <style>
+        label{
+            color: white;
+        }
         body {
             font-family: sans-serif;
             flex-direction: column;
@@ -43,7 +46,7 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
-            background-image: url(https://wallpaperaccess.com/full/3204572.jpg);
+            background-image: url(https://images.pexels.com/photos/434337/pexels-photo-434337.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
         background-repeat: no-repeat;
         background-size: cover;
             
@@ -51,7 +54,7 @@
 
         h2 {
             font-size: 40px;
-            color: #000000;
+            color: #ffffff;
             margin-bottom: 20px;
             text-align: center;
         }
@@ -67,7 +70,7 @@
 
             backdrop-filter: blur(16px) saturate(180%);
         -webkit-backdrop-filter: blur(16px) saturate(180%);
-        background-color: rgba(17, 25, 40, 0.75);
+        background-color: rgba(0, 0, 0, 0.75);
         border-radius: 12px;
         border: 1px solid rgba(255, 255, 255, 0.125);
         }
@@ -126,7 +129,7 @@
 
 <form method="post" action="{% url 'subscribe' %}">
     <h2 class="h2">Subscribe to Newsletter</h2>
-    <p class="mail">Enter your email</p>
+    <!-- <p class="mail">Enter your email</p> -->
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Subscribe</button>

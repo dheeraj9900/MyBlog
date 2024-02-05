@@ -34,7 +34,9 @@ class Likes(models.Model):
   blogPost = models.ForeignKey(Blog,on_delete=models.CASCADE)
   # countLikes  = models.BigIntegerField(default=0)
   
-  
+# class Comments(models.Model):
+#   commentText = models.ForeignKey(User,on_delete=models.CASCADE)
+
 
 class Subscriber(models.Model):
     email = models.EmailField(unique=True)
@@ -43,3 +45,13 @@ class Subscriber(models.Model):
         return self.email
    
    
+
+
+class Comment(models.Model): 
+  author = models.CharField(max_length=255, default="") 
+  # email = models.EmailField() 
+  blog = models.ForeignKey(Blog,on_delete=models.CASCADE)
+  body = models.TextField()
+  
+  def __str__(self):
+     return self.body
